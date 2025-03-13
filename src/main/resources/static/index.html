@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Propiedades</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Propiedades 🏡</h1>
+
+        <!-- Formulario para crear/actualizar propiedades -->
+        <form id="propertyForm">
+            <input type="hidden" id="propertyId">
+            <div class="form-group">
+                <label for="address">Dirección:</label>
+                <input type="text" id="address" required>
+            </div>
+            <div class="form-group">
+                <label for="price">Precio:</label>
+                <input type="number" id="price" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Tamaño (m²):</label>
+                <input type="number" id="size" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="text" id="phone" required>
+            </div>
+            <button type="submit">Guardar Propiedad</button>
+        </form>
+
+        <!-- Tabla para mostrar las propiedades -->
+        <h2>Propiedades Guardadas</h2>
+        <table id="propertyTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Dirección</th>
+                    <th>Precio</th>
+                    <th>Tamaño (m²)</th>
+                    <th>Descripción</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Las filas se llenarán dinámicamente con JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Incluye el archivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
