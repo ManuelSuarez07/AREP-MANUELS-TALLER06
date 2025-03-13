@@ -1,0 +1,117 @@
+/* Estilos generales para el contenedor del login y registro */
+.login-register-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin: 20px auto; /* Centrar en la página */
+}
+
+/* Títulos */
+.login-register-container h1 {
+    color: #d4af37; /* Dorado para títulos */
+    margin-bottom: 20px;
+}
+
+/* Formularios */
+.login-register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Grupos de formulario */
+.login-register-container .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.login-register-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #d4af37; /* Dorado para etiquetas */
+}
+
+.login-register-container .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #2d2d2d; /* Fondo gris oscuro */
+    color: #e0e0e0; /* Texto claro */
+    font-size: 14px;
+}
+
+.login-register-container .form-group input:focus {
+    border-color: #d4af37; /* Borde dorado al enfocar */
+    outline: none;
+}
+
+/* Botones */
+.login-register-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #d4af37; /* Dorado */
+    color: #1a1a1a; /* Texto oscuro */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-register-container button[type="submit"]:hover {
+    background-color: #c0a030; /* Dorado más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala */
+}
+
+/* Enlaces de alternar formulario */
+.login-register-container a {
+    color: #d4af37; /* Dorado */
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.login-register-container a:hover {
+    color: #c0a030; /* Dorado más oscuro al pasar el mouse */
+}
+
+/* Mensajes de error */
+.login-register-container .error-message {
+    color: #ff6b6b; /* Rojo claro para errores */
+    display: none;
+    margin-top: 10px;
+}
+
+/* Estilos específicos para la sección de login */
+.login-container {
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.login-container h1 {
+    color: #d4af37; /* Dorado para títulos */
+    margin-bottom: 20px;
+}
+
+/* Estilos específicos para la sección de registro */
+.register-container {
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.register-container h1 {
+    color: #d4af37; /* Dorado para títulos */
+    margin-bottom: 20px;
+}

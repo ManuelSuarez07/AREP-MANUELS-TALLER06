@@ -1,181 +1,199 @@
-const API_URL = "/api/properties"; // Usa HTTPS // Ajusta el puerto si es necesario
+const API_URL = "https://localhost:8443/api/properties";
 
+// Cargar propiedades al iniciar
 document.addEventListener("DOMContentLoaded", () => {
-    // Cargar propiedades al iniciar
     loadProperties();
-
-    // Delegación de eventos para manejar botones de editar y eliminar
-    const tbody = document.querySelector("#propertyTable tbody");
-    if (tbody) {
-        tbody.addEventListener("click", (event) => {
-            if (event.target.classList.contains("edit-btn")) {
-                const id = event.target.getAttribute("data-id");
-                editProperty(id);
-            } else if (event.target.classList.contains("delete-btn")) {
-                const id = event.target.getAttribute("data-id");
-                deleteProperty(id);
-            }
-        });
-    }
-
-    // Manejar el formulario de propiedades
-    const propertyForm = document.getElementById("propertyForm");
-    if (propertyForm) {
-        propertyForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const id = document.getElementById("propertyId").value;
-            const property = {
-                address: document.getElementById("address").value,
-                price: parseFloat(document.getElementById("price").value),
-                size: parseFloat(document.getElementById("size").value),
-                description: document.getElementById("description").value,
-                phone: document.getElementById("phone").value
-            };
-
-            const method = id ? "PUT" : "POST";
-            const url = id ? `${API_URL}/${id}` : API_URL;
-
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(property)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Error en la solicitud: ${response.status}`);
-                }
-
-                alert(id ? "Propiedad actualizada correctamente." : "Propiedad creada correctamente.");
-                document.getElementById("propertyForm").reset();
-                document.getElementById("propertyId").value = "";
-                loadProperties();
-            } catch (error) {
-                console.error("Error:", error);
-                alert("No se pudo guardar la propiedad.");
-            }
-        });
-    }
-
-    // Manejar el formulario de login
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) {
-        loginForm.addEventListener("submit", async (e) => {
-            e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
-
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            try {
-                const response = await fetch("/api/auth/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    })
-                });
-
-                if (response.ok) {
-                    // Redirigir al usuario a la página principal después del inicio de sesión exitoso
-                    window.location.href = "/index.html";
-                } else {
-                    // Mostrar mensaje de error si las credenciales son incorrectas
-                    document.getElementById("errorMessage").style.display = "block";
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                document.getElementById("errorMessage").style.display = "block";
-            }
-        });
-    }
+    setupForm();
+    setupSearch();
 });
 
 // Función para cargar propiedades
 async function loadProperties() {
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Error al cargar las propiedades");
-        
-        const properties = await response.json();
+        if (!response.ok) throw new Error("Error loading properties");
+        const data = await response.json(); // Respuesta completa de la API
+        const properties = data.content; // Accede al array de propiedades dentro de "content"
+        console.log(properties); // Verifica el array en la consola
         const tbody = document.querySelector("#propertyTable tbody");
-        if (tbody) {
-            tbody.innerHTML = "";
-
-            if (properties.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="empty-message">No hay propiedades registradas.</td></tr>`;
-            } else {
-                properties.forEach(property => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td>${property.id}</td>
-                        <td>${property.address}</td>
-                        <td>${property.price}</td>
-                        <td>${property.size}</td>
-                        <td>${property.description}</td>
-                        <td>${property.phone}</td>
-                        <td>
-                            <button class="edit-btn" data-id="${property.id}">Editar</button>
-                            <button class="delete-btn" data-id="${property.id}">Eliminar</button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            }
-        } else {
-            console.error("No se encontró el elemento <tbody> en la tabla.");
-        }
+        tbody.innerHTML = properties.length === 0
+            ? `<tr><td colspan="6" class="empty-message">No properties found.</td></tr>`
+            : properties.map(property => `
+                <tr>
+                    <td>${property.id}</td>
+                    <td>${property.address}</td>
+                    <td>${property.price}</td>
+                    <td>${property.size}</td>
+                    <td>${property.description}</td>
+                    <td>
+                        <button class="edit" onclick="editProperty(${property.id})">Edit</button>
+                        <button class="delete" onclick="deleteProperty(${property.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join("");
     } catch (error) {
         console.error("Error:", error);
+        alert("Error loading properties.");
     }
+}
+
+// Función para configurar el formulario de agregar propiedades
+function setupForm() {
+    const propertyForm = document.getElementById("propertyForm");
+    propertyForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const property = {
+            id: document.getElementById("propertyId").value || null,
+            address: document.getElementById("location").value,
+            price: parseFloat(document.getElementById("price").value),
+            size: parseFloat(document.getElementById("size").value),
+            description: document.getElementById("details").value
+        };
+
+        const method = property.id ? "PUT" : "POST";
+        const url = property.id ? `${API_URL}/${property.id}` : API_URL;
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(property)
+            });
+
+            if (!response.ok) throw new Error("Error saving property");
+
+            alert(property.id ? "Property updated successfully." : "Property created successfully.");
+            document.getElementById("propertyForm").reset();
+            loadProperties(); // Recargar la lista de propiedades
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error saving property.");
+        }
+    });
 }
 
 // Función para editar una propiedad
 async function editProperty(id) {
     try {
+        console.log("Editing property with ID:", id);
         const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) {
-            throw new Error("Error al cargar la propiedad");
-        }
-
+        if (!response.ok) throw new Error("Error loading property");
         const property = await response.json();
+        console.log("Property data:", property);
 
-        // Llenar el formulario con los datos de la propiedad
-        document.getElementById("propertyId").value = property.id;
-        document.getElementById("address").value = property.address;
-        document.getElementById("price").value = property.price;
-        document.getElementById("size").value = property.size;
-        document.getElementById("description").value = property.description;
-        document.getElementById("phone").value = property.phone;
+        // Mostrar el formulario de edición
+        document.getElementById("editFormSection").style.display = "block";
 
-        // Enfocar en el campo de dirección para indicar edición
-        document.getElementById("address").focus();
+        // Cargar los datos de la propiedad en el formulario
+        document.getElementById("editPropertyId").value = property.id;
+        document.getElementById("editLocation").value = property.address;
+        document.getElementById("editPrice").value = property.price;
+        document.getElementById("editSize").value = property.size;
+        document.getElementById("editDetails").value = property.description;
     } catch (error) {
         console.error("Error:", error);
-        alert("No se pudo cargar la propiedad para editar.");
+        alert("Error loading property.");
     }
 }
 
-// Función para eliminar una propiedad
-async function deleteProperty(id) {
-    if (!confirm("¿Seguro que deseas eliminar esta propiedad?")) {
-        return;
-    }
+// Función para cancelar la edición
+function cancelEdit() {
+    // Ocultar el formulario de edición
+    document.getElementById("editFormSection").style.display = "none";
+
+    // Limpiar los campos del formulario
+    document.getElementById("editForm").reset();
+}
+
+// Configurar el evento submit del formulario de edición
+document.getElementById("editForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const property = {
+        id: document.getElementById("editPropertyId").value,
+        address: document.getElementById("editLocation").value,
+        price: parseFloat(document.getElementById("editPrice").value),
+        size: parseFloat(document.getElementById("editSize").value),
+        description: document.getElementById("editDetails").value
+    };
 
     try {
-        const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+        const response = await fetch(`${API_URL}/${property.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(property)
+        });
 
-        if (!response.ok) {
-            throw new Error(`Error al eliminar la propiedad: ${response.status}`);
-        }
+        if (!response.ok) throw new Error("Error updating property");
 
-        alert("Propiedad eliminada correctamente.");
+        alert("Property updated successfully.");
+
+        // Ocultar el formulario de edición
+        document.getElementById("editFormSection").style.display = "none";
+
+        // Limpiar el formulario
+        document.getElementById("editForm").reset();
+
+        // Recargar la lista de propiedades
         loadProperties();
     } catch (error) {
         console.error("Error:", error);
-        alert("No se pudo eliminar la propiedad.");
+        alert("Error updating property.");
     }
+});
+
+// Función para eliminar una propiedad
+async function deleteProperty(id) {
+    if (confirm("Are you sure you want to delete this property?")) {
+        try {
+            const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            if (!response.ok) throw new Error("Error deleting property");
+            loadProperties(); // Recargar la lista de propiedades
+            alert("Property deleted successfully.");
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error deleting property.");
+        }
+    }
+}
+
+// Función para configurar la búsqueda
+function setupSearch() {
+    const searchForm = document.getElementById("searchForm");
+    searchForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const location = document.getElementById("searchLocation").value;
+        const minPrice = document.getElementById("searchMinPrice").value;
+        const maxPrice = document.getElementById("searchMaxPrice").value;
+        const minSize = document.getElementById("searchMinSize").value;
+        const maxSize = document.getElementById("searchMaxSize").value;
+
+        try {
+            const response = await fetch(`${API_URL}/search?location=${location}&minPrice=${minPrice}&maxPrice=${maxPrice}&minSize=${minSize}&maxSize=${maxSize}`);
+            if (!response.ok) throw new Error("Error searching properties");
+            const data = await response.json();
+            const properties = data.content; // Accede al array de propiedades dentro de "content"
+            const tbody = document.querySelector("#propertyTable tbody");
+            tbody.innerHTML = properties.length === 0
+                ? `<tr><td colspan="6" class="empty-message">No properties found.</td></tr>`
+                : properties.map(property => `
+                    <tr>
+                        <td>${property.id}</td>
+                        <td>${property.address}</td>
+                        <td>${property.price}</td>
+                        <td>${property.size}</td>
+                        <td>${property.description}</td>
+                        <td>
+                            <button class="edit" onclick="editProperty(${property.id})">Edit</button>
+                            <button class="delete" onclick="deleteProperty(${property.id})">Delete</button>
+                        </td>
+                    </tr>
+                `).join("");
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error searching properties.");
+        }
+    });
 }

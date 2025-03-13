@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "property")
@@ -14,13 +16,19 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Address is required")
     private String address;
-    private Double price;
-    private Double size;
-    private String description;
-    private String phone;
 
-    // Getters y Setters
+    @NotNull(message = "Price is required")
+    private Double price;
+
+    @NotNull(message = "Size is required")
+    private Double size;
+
+    @NotBlank(message = "Description is required")
+    private String description;
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -59,13 +67,5 @@ public class Property {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 }

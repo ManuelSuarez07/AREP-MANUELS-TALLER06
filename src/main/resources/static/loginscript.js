@@ -1,3 +1,17 @@
+// Alternar entre los formularios de inicio de sesión y registro
+document.getElementById("showRegister").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("registerSection").style.display = "block";
+});
+
+document.getElementById("showLogin").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("registerSection").style.display = "none";
+    document.getElementById("loginSection").style.display = "block";
+});
+
+// Manejar el inicio de sesión
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
 
@@ -18,6 +32,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
         if (response.ok) {
             window.location.href = "/index.html"; // Redirigir al index.html
+            document.getElementById("loginForm").reset(); // Limpiar campos del formulario
         } else {
             const errorData = await response.json();
             document.getElementById("errorMessage").textContent = errorData.error || "Usuario o contraseña incorrectos";
@@ -30,6 +45,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     }
 });
 
+// Manejar el registro
 document.getElementById("registerForm").addEventListener("submit", async (e) => {
     e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
 
@@ -50,6 +66,9 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
 
         if (response.ok) {
             alert("Usuario registrado con éxito. Por favor, inicia sesión.");
+            document.getElementById("registerForm").reset(); // Limpiar campos del formulario
+            document.getElementById("registerSection").style.display = "none"; // Ocultar formulario de registro
+            document.getElementById("loginSection").style.display = "block"; // Mostrar formulario de inicio de sesión
         } else {
             const errorData = await response.json();
             document.getElementById("registerErrorMessage").textContent = errorData.error || "Error al registrar usuario";
