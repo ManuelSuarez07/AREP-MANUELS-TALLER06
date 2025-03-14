@@ -1,0 +1,168 @@
+/* Estilos generales */
+body {
+    background-color: #2d2d2d; /* Fondo gris oscuro */
+    color: #e0e0e0; /* Texto claro */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+h1, h2 {
+    color: #d4af37; /* Dorado para títulos */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el formulario */
+.property-form {
+    background-color: #2d2d2d; /* Fondo gris oscuro */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #d4af37; /* Dorado para etiquetas */
+}
+
+.form-group input,
+.form-group textarea {
+    width: calc(100% - 22px); /* Ajuste para respetar el margen */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    color: #e0e0e0; /* Texto claro */
+    font-size: 14px;
+    margin: 0 10px; /* Margen para respetar el cuadro */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #d4af37; /* Borde dorado al enfocar */
+    outline: none;
+}
+
+button[type="submit"] {
+    width: calc(100% - 20px); /* Ajuste para respetar el margen */
+    padding: 12px;
+    background-color: #d4af37; /* Dorado */
+    color: #1a1a1a; /* Texto oscuro */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 0 10px; /* Margen para respetar el cuadro */
+}
+
+button[type="submit"]:hover {
+    background-color: #c0a030; /* Dorado más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala */
+}
+
+/* Estilos para el botón Cancel */
+button[type="button"] {
+    width: calc(100% - 20px); /* Ajuste para respetar el margen */
+    padding: 12px;
+    background-color: #6c757d; /* Gris oscuro */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 10px 10px 0 10px; /* Margen superior e inferior */
+}
+
+button[type="button"]:hover {
+    background-color: #5a6268; /* Gris más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala */
+}
+
+/* Estilos para la tabla */
+#propertyTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #3a3a3a; /* Fondo gris un poco más claro */
+    color: #e0e0e0; /* Texto claro */
+    font-family: Arial, sans-serif;
+}
+
+#propertyTable th,
+#propertyTable td {
+    padding: 12px;
+    border: 1px solid #444; /* Borde más oscuro */
+    text-align: left;
+}
+
+#propertyTable th {
+    background-color: #d4af37; /* Dorado */
+    color: #1a1a1a; /* Texto oscuro para contraste */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#propertyTable tr:nth-child(even) {
+    background-color: #2d2d2d; /* Fondo gris oscuro para filas pares */
+}
+
+#propertyTable tr:nth-child(odd) {
+    background-color: #262626; /* Fondo un poco más claro para filas impares */
+}
+
+#propertyTable tr:hover {
+    background-color: #333; /* Fondo más claro al pasar el mouse */
+    transition: background-color 0.3s ease;
+}
+
+#propertyTable button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#propertyTable button.edit {
+    background-color: #d4af37; /* Dorado */
+    color: #1a1a1a; /* Texto oscuro */
+}
+
+#propertyTable button.delete {
+    background-color: #b22222; /* Rojo oscuro */
+    color: white;
+}
+
+#propertyTable button.edit:hover {
+    background-color: #c0a030; /* Dorado más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala */
+}
+
+#propertyTable button.delete:hover {
+    background-color: #8b0000; /* Rojo más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de escala */
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏢Property Management🏢</h1>
+        </header>
+
+        <!-- Formulario para agregar propiedades -->
+        <section class="property-form">
+            <h2>Add Property</h2>
+            <form id="propertyForm">
+                <input type="hidden" id="propertyId">
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price ($):</label>
+                    <input type="number" id="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="size">Size (m²):</label>
+                    <input type="number" id="size" required>
+                </div>
+                <div class="form-group">
+                    <label for="details">Details:</label>
+                    <textarea id="details" required></textarea>
+                </div>
+                <button type="submit">Save Property</button>
+            </form>
+        </section>
+
+        <!-- Formulario para editar propiedades (oculto inicialmente) -->
+        <section class="property-form" id="editFormSection" style="display: none;">
+            <h2>Edit Property</h2>
+            <form id="editForm">
+                <input type="hidden" id="editPropertyId">
+                <div class="form-group">
+                    <label for="editLocation">Location:</label>
+                    <input type="text" id="editLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPrice">Price ($):</label>
+                    <input type="number" id="editPrice" required>
+                </div>
+                <div class="form-group">
+                    <label for="editSize">Size (m²):</label>
+                    <input type="number" id="editSize" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDetails">Details:</label>
+                    <textarea id="editDetails" required></textarea>
+                </div>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="cancelEdit()">Cancel</button>
+            </form>
+        </section>
+
+        <!-- Sección para buscar propiedades -->
+        <section class="search-form">
+            <h2>Search Properties</h2>
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="searchLocation">Location:</label>
+                    <input type="text" id="searchLocation">
+                </div>
+                <div class="form-group">
+                    <label for="searchMinPrice">Min Price:</label>
+                    <input type="number" id="searchMinPrice">
+                </div>
+                <div class="form-group">
+                    <label for="searchMaxPrice">Max Price:</label>
+                    <input type="number" id="searchMaxPrice">
+                </div>
+                <div class="form-group">
+                    <label for="searchMinSize">Min Size:</label>
+                    <input type="number" id="searchMinSize">
+                </div>
+                <div class="form-group">
+                    <label for="searchMaxSize">Max Size:</label>
+                    <input type="number" id="searchMaxSize">
+                </div>
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <!-- Sección para mostrar propiedades -->
+        <section class="property-list">
+            <h2>Saved Properties</h2>
+            <table id="propertyTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Price</th>
+                        <th>Size</th>
+                        <th>Details</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows will be populated dynamically with JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
