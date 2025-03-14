@@ -308,7 +308,8 @@ scp -i "ruta/a/tu/llave.pem" "ruta/a/tu/archivo.jar" usuario@direccion-de-tu-ins
 
 ### 🎥 Deployment Videos
 
-1. [🎥 AWS Deployment Video](https://img.youtube.com/vi/Pri7Ge3WBX0/maxresdefault.jpg)](https://www.youtube.com/watch?v=Pri7Ge3WBX0)
+1. [![🎥 AWS Deployment Video](https://img.shields.io/badge/Watch%20on-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/VkCpB_Xl6KM)
+
 
 ---
 
