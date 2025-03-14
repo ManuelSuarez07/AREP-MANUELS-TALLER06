@@ -208,8 +208,9 @@ mvn clean package
 mvn spring-boot:run
 ```
 > [!IMPORTANT] 
-> En el archivo `application.properties`, la base de datos está configurada para conectarse a la instancia de AWS creada. Esta configuración se debe actualizar cada vez que el servidor se inicia.  
-> El proyecto **no se ejecutará de manera local** a menos que se reemplace la configuración de la base de datos cambiando la línea correspondiente por `localhost:3306` y usando una base de datos local adecuada.
+> In the `application.properties` file, the database is configured to connect to the AWS instance that was created. This configuration must be updated each time the server starts.  
+> The project **will not run locally** unless the database configuration is replaced by changing the corresponding line to `localhost:3306` and using a proper local database.
+
 
 ---
 # 🚀 Application Deployment on AWS with Docker
