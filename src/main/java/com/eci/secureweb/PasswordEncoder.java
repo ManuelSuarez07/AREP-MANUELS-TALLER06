@@ -2,7 +2,7 @@ package com.eci.secureweb;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class PasswordEncoderUtil {
+public class PasswordEncoder {
     public static void main(String[] args) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String rawPassword = "tu_contraseña";

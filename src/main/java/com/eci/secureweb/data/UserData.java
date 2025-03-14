@@ -1,16 +1,15 @@
-package com.eci.secureweb.dto;
+package com.eci.secureweb.data;
 
 
 
-public class UserDto {
-
+public class UserData {
     private String username;
     private String password;
 
-    public UserDto() {
+    public UserData() {
     }
 
-    public UserDto(String username, String password) {
+    public UserData(String username, String password) {
         this.username = username;
         this.password = password;
     }
